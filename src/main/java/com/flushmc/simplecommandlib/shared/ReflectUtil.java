@@ -1,5 +1,6 @@
 package com.flushmc.simplecommandlib.shared;
 
+import com.flushmc.simplecommandlib.CommandAuthor;
 import com.flushmc.simplecommandlib.annotations.Command;
 import com.flushmc.simplecommandlib.annotations.TabComplete;
 import org.bukkit.command.CommandSender;
@@ -52,10 +53,10 @@ public class ReflectUtil {
         return null;
     }
 
-    public static List<String> runTabComplete(Class<?> cls, Method method, CommandSender sender, String[] args) {
+    public static List<String> runTabComplete(Class<?> cls, Method method, CommandAuthor author, String[] args) {
         if (method != null) {
             try {
-                var result = method.invoke(cls.getDeclaredConstructor().newInstance(), sender, args);
+                var result = method.invoke(cls.getDeclaredConstructor().newInstance(), author, args);
                 if (result instanceof List list) {
                     return (List<String>) list;
                 }
@@ -81,10 +82,10 @@ public class ReflectUtil {
     Command
      */
 
-    public static void runCommand(Class<?> cls, Method method, CommandSender sender, String[] args) {
+    public static void runCommand(Class<?> cls, Method method, CommandAuthor auther, String[] args) {
         if (method != null) {
             try {
-                method.invoke(cls.getDeclaredConstructor().newInstance(), sender, args);
+                method.invoke(cls.getDeclaredConstructor().newInstance(), auther, args);
             } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
