@@ -24,6 +24,13 @@ public class CommandAuthor implements CommandSender {
         return sender instanceof Player;
     }
 
+    public Player getPlayer() {
+        if (isPlayer()) {
+            return (Player) sender;
+        }
+        return null;
+    }
+
     @Override
     public void sendMessage(String s) {
         sender.sendMessage(MessageConfig.simpleTranslate(s));
