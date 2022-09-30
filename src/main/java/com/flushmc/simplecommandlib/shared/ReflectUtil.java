@@ -53,15 +53,15 @@ public class ReflectUtil {
         return null;
     }
 
-    public static List<String> runTabComplete(Class<?> cls, Method method, CommandAuthor author, String[] args) {
+    public static List<String> runTabComplete(Object object, Method method, CommandAuthor author, String[] args) {
         if (method != null) {
             try {
-                var result = method.invoke(cls.getDeclaredConstructor().newInstance(), author, args);
+                var result = method.invoke(object, author, args);
                 if (result instanceof List list) {
                     return (List<String>) list;
                 }
                 return Collections.emptyList();
-            } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
@@ -82,11 +82,11 @@ public class ReflectUtil {
     Command
      */
 
-    public static void runCommand(Class<?> cls, Method method, CommandAuthor auther, String[] args) {
+    public static void runCommand(Object object, Method method, CommandAuthor author, String[] args) {
         if (method != null) {
             try {
-                method.invoke(cls.getDeclaredConstructor().newInstance(), auther, args);
-            } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
+                method.invoke(object, author, args);
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

@@ -41,7 +41,7 @@ public class ReflectCommand extends Command {
                 return true;
             }
         }
-        ReflectUtil.runCommand(commandClass.getClass(), handler, new CommandAuthor(sender), args);
+        ReflectUtil.runCommand(commandClass, handler, new CommandAuthor(sender), args);
         return false;
     }
 
@@ -51,11 +51,11 @@ public class ReflectCommand extends Command {
         var command = ReflectUtil.getCommand(handler);
         if (!command.permssion().isEmpty()) {
             if (sender.hasPermission(command.permssion())) {
-                return ReflectUtil.runTabComplete(commandClass.getClass(), method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
+                return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
             }
             return Collections.emptyList();
         }
-        return ReflectUtil.runTabComplete(commandClass.getClass(), method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
+        return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
     }
 
 
