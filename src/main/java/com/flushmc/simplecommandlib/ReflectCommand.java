@@ -2,7 +2,7 @@ package com.flushmc.simplecommandlib;
 
 import com.flushmc.simplecommandlib.shared.ReflectUtil;
 import lombok.NonNull;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -51,11 +51,11 @@ public class ReflectCommand extends Command {
         var command = ReflectUtil.getCommand(handler);
         if (!command.permssion().isEmpty()) {
             if (sender.hasPermission(command.permssion())) {
-                return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
+                return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), ArrayUtils.remove(args, 0));
             }
             return Collections.emptyList();
         }
-        return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), (String[]) ArrayUtils.remove(args, 0));
+        return ReflectUtil.runTabComplete(commandClass, method, new CommandAuthor(sender), ArrayUtils.remove(args, 0));
     }
 
 
